@@ -1,0 +1,14 @@
+{ 
+    "values":[
+        {
+            "recordId":"0", 
+            "data":{
+                "document_id":"1",
+                "text":"This is test sample",
+                "filepath":"test.pdf",
+                "fieldname":"field_name"
+            }
+        }
+    ]
+
+}
