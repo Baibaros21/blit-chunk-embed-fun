@@ -19,10 +19,11 @@ class ChunkEmbeddingHelper():
         return chunk_embeddings
 
     def _generate_content_metadata(self, document_id, fieldname, index, content, offset):
-        metadata = {'fieldname':fieldname}
-        metadata['docid'] = document_id
+        metadata = {'source_field_name':fieldname}
+        metadata['source_document_id'] = document_id
         metadata['index'] = index
         metadata['offset'] = offset
         metadata['length'] = len(content)
         metadata['embedding'] = self.text_embedder.embed_content(content)
-        return metadata
+        return metadata 
+    

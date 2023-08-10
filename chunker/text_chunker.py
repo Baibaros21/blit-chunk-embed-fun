@@ -24,6 +24,8 @@ class TextChunker():
         "htm": "html",
         "py": "python",
         "pdf": "pdf",
+        "docx":"docx",
+        "doc":"doc"
     }
     SENTENCE_ENDINGS = [".", "!", "?"]
     WORDS_BREAKS = ['\n', '\t', '}', '{', ']', '[', ')', '(', ' ', ':', ';', ',']
@@ -105,7 +107,7 @@ class TextChunker():
             chunks = []
             skipped_chunks = 0
             for chunk, chunk_size, doc in chunked_context:
-                if chunk_size >= min_chunk_size:
+                if chunk_size >= min_chunk_size and content !="\n":
                     chunks.append(
                         Document(
                             content=chunk,
@@ -132,5 +134,5 @@ class TextChunker():
         return ChunkingResult(
             chunks=chunks,
             total_files=1,
-            skipped_chunks=skipped_chunks,
+            skipped_chunks=skipped_chunks
         )

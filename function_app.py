@@ -8,6 +8,7 @@ from chunker.chunk_metadata_helper import ChunkEmbeddingHelper
 
 app = func.FunctionApp()
 
+
 TEXT_CHUNKER = TextChunker()
 CHUNK_METADATA_HELPER = ChunkEmbeddingHelper()
 
@@ -26,12 +27,12 @@ Optional environment variables:
 @app.route(route="chunk-embed")
 def text_chunking(req: func.HttpRequest) -> func.HttpResponse:
 
-    logging.info('Python HTTP trigger function processed a request.')
+    logging.info(f'Python HTTP trigger function processed a request: : {req.get_json()}')
     
     sleep_interval_seconds = int(os.getenv("AZURE_OPENAI_EMBEDDING_SLEEP_INTERVAL_SECONDS", "1"))
-    num_tokens = int(os.getenv("NUM_TOKENS", "128"))
-    min_chunk_size = int(os.getenv("MIN_CHUNK_SIZE", "5"))
-    token_overlap = int(os.getenv("TOKEN_OVERLAP", "0"))
+    num_tokens = int(os.getenv("NUM_TOKENS", "1000"))
+    min_chunk_size = int(os.getenv("MIN_CHUNK_SIZE", "10"))
+    token_overlap = int(os.getenv("TOKEN_OVERLAP", "100"))
 
     request = req.get_json()
 
@@ -86,7 +87,7 @@ def get_request_schema():
                         "data": {
                             "type": "object",
                             "properties": {
-                                "text": {"type": "string", "minLength": 1},
+                                "text": {"type": "string", "minLength": 0},
                                 "document_id": {"type": "string", "minLength": 1},
                                 "filepath": {"type": "string", "minLength": 1},
                                 "fieldname": {"type": "string", "minLength": 1}
