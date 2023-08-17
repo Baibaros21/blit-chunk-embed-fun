@@ -9,3 +9,5 @@ openai
 azure-identity
 tenacity
 jsonschema
+azure.ai.formrecognizer
+jsons

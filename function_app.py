@@ -5,6 +5,7 @@ import json
 import jsonschema
 from chunker.text_chunker import TextChunker
 from chunker.chunk_metadata_helper import ChunkEmbeddingHelper
+from form_recognizer_helper import Form_Recognizer_Helper
 
 app = func.FunctionApp()
 
@@ -48,6 +49,9 @@ def text_chunking(req: func.HttpRequest) -> func.HttpResponse:
         text = value['data']['text']
         filepath = value['data']['filepath']
         fieldname = value['data']['fieldname']
+
+        form_helper = Form_Recognizer_Helper()
+        form_helper.get_form_analysis(filepath=filepath)
     
         # chunk documents into chunks of (by default) 2048 tokens, and for each chunk, generate the vector embedding
         chunking_result = TEXT_CHUNKER.chunk_content(text, file_path=filepath, num_tokens=num_tokens, min_chunk_size=min_chunk_size, token_overlap=token_overlap)
